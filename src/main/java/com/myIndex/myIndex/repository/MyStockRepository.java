@@ -8,9 +8,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface MyStockRepository extends JpaRepository<MyStock, Long> {
+public interface MyStockRepository extends JpaRepository<MyStock, String> {
     Optional<MyStock> findByStockSymbol(String stockSymbol);
-
-    @Override
-    List<MyStock> findAll();
 }

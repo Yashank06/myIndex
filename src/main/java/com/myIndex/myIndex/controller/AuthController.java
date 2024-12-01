@@ -4,6 +4,7 @@ import com.myIndex.myIndex.model.MyStock;
 import com.myIndex.myIndex.model.Price;
 import com.myIndex.myIndex.service.MyStockService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,11 +39,13 @@ public class AuthController {
 
     @GetMapping("/stockPrice/{stockSymbol}")
     public ResponseEntity<Price> getStockPrice(@PathVariable String stockSymbol) {
+        Price price = null;
         try {
-            Price price = myStockService.fetchStockPrice(stockSymbol);
-            return ResponseEntity.ok(price);
+            price = myStockService.getPriceFromDatabase(stockSymbol);
         } catch (IOException e) {
-            return null;
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new Price());
         }
+        return ResponseEntity.ok(price);
     }
 }

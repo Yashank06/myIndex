@@ -8,14 +8,11 @@ import lombok.Data;
 public class MyStock {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "stockSymbol", nullable = false, unique = true)
+    private String stockSymbol;
 
     @Column(unique = true, nullable = false)
     private String stockName;
-
-    @Column(name = "stockSymbol",nullable = false)
-    private String stockSymbol;
 
     @Column(nullable = false)
     private String industryType;
@@ -34,6 +31,8 @@ public class MyStock {
 
     @Column(nullable = false)
     private String qtrRating;
+
+    private String currPrice;
 
     private String role = "USER"; // Default role
 }
