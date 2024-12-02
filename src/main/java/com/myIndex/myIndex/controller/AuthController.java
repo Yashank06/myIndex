@@ -2,7 +2,9 @@ package com.myIndex.myIndex.controller;
 
 import com.myIndex.myIndex.model.MyStock;
 import com.myIndex.myIndex.model.Price;
+import com.myIndex.myIndex.model.StockNews;
 import com.myIndex.myIndex.service.MyStockService;
+import com.myIndex.myIndex.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,9 @@ public class AuthController {
 
     @Autowired
     private MyStockService myStockService;
+
+    @Autowired
+    private NewsService newsService;
 
     @GetMapping("/myAllStocks")
     public ResponseEntity<List<MyStock>> myStocks() {
@@ -47,5 +52,15 @@ public class AuthController {
                     .body(new Price());
         }
         return ResponseEntity.ok(price);
+    }
+
+    @GetMapping("/news/{stockName}")
+    public ResponseEntity<List<StockNews>> getLatestNews(@PathVariable String stockName) {
+        try {
+            List<StockNews> newsList = newsService.fetchLatestNews(stockName);
+            return ResponseEntity.ok(newsList);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(null);
+        }
     }
 }

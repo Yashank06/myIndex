@@ -42,7 +42,6 @@ public class MyStockService {
         } else {
             price.setCurrPrice(stock.getCurrPrice());
         }
-
         return price;
     }
 
