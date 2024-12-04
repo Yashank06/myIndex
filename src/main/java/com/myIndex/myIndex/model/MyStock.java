@@ -26,12 +26,6 @@ public class MyStock {
     @Column(nullable = false)
     private String buyRange;
 
-    @Column(nullable = false)
-    private String yearlyRating;
-
-    @Column(nullable = false)
-    private String qtrRating;
-
     private String currPrice;
 
     private String role = "USER"; // Default role
